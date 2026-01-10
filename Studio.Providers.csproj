@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    
+    <!-- NuGet Package Settings -->
+    <PackageId>Studio.Providers</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Filip Prober</Authors>
+    <Company>Condition Software Labs e.U.</Company>
+    <Description>Organize your C# .NET Code with Service Providers.</Description>
+    <PackageTags>aspnetcore;providers;service-provider;bootstrapping;dependency-injection</PackageTags>
+    <RepositoryUrl>https://github.com/conditionlabs/Studio.Providers</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/conditionlabs/Studio.Providers</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
