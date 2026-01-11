@@ -11,7 +11,11 @@
 
 ## Introduction
 
-Service providers are the central place for configuring an application's services and bootstrapping its components. All service providers extend the `Studio.Providers.ServiceProvider` base class and implement a two-step initialization process through the `Register` and `Boot` methods.
+As ASP.NET Core applications grow, organizing startup logic can become challenging. Configuration code scattered across `Program.cs` quickly becomes difficult to maintain, test, and understand. Service providers offer an elegant solution to this problem by providing a clean, modular approach to configuring applications.
+
+Service providers are the central place of all service container bindings in an application. They allow grouping related functionality together, making an application's bootstrapping process more organized and maintainable.
+
+All service providers extend the `Studio.Providers.ServiceProvider` base class and implement a two-step initialization process through the `Register` and `Boot` methods.
 
 The `Register` method is exclusively responsible for binding services into the service container. Within this method, nothing else should be done besides registering service bindings. Otherwise, services bound by providers that have not loaded yet may accidentally be used.
 
