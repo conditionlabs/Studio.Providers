@@ -48,6 +48,17 @@ public class ServiceProviderManager
     }
 
     /// <summary>
+    /// Register a service provider.
+    /// </summary>
+    public ServiceProviderManager Add<T>(Action<T> provider) where T : Contracts.IServiceProvider, new()
+    {
+        var instance = new T();
+        provider(instance);
+        this.providers.Add(instance);
+        return this;
+    }
+
+    /// <summary>
     /// Bootstrap all service providers.
     /// </summary>
     public void BootAll(WebApplication app)
@@ -57,7 +68,14 @@ public class ServiceProviderManager
         foreach (var provider in this.providers)
         {
             provider.app = this.app;
-            BootProvider(provider);
+            try
+            {
+                BootProvider(provider);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.GetBaseException().Message);
+            }
         }
     }
 

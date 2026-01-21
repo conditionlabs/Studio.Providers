@@ -6,6 +6,7 @@
   - [The Register Method](#the-register-method)
   - [The Boot Method](#the-boot-method)
   - [Boot Method Dependency Injection](#boot-method-dependency-injection)
+- [Configuring Providers](#configuring-providers)
 - [Registering Providers](#registering-providers)
 - [Executing Providers](#executing-providers)
 
@@ -91,6 +92,34 @@ public void Boot(ResponseFactory response)
     });
 }
 ```
+
+## Configuring Providers
+
+Sometimes, you may need to customize the behavior of a provider before it is initialized. This package makes this effortless by allowing you to pass a configuration callback when adding providers to your application.
+
+When registering a provider, simply provide a closure as the second argument to the `Add` method. This closure will receive an instance of the provider, allowing you to set properties or invoke methods to tailor the provider's behavior to your application's specific needs.
+
+For example, imagine you have a `ViewServiceProvider` that needs to know which Blazor component serves as your application's root. You can configure this directly during registration:
+
+```csharp
+using Studio.Providers;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddProviders(providers =>
+{
+    providers
+        .Add<AppServiceProvider>()
+        .Add<AuthServiceProvider>()
+        .Add<RouteServiceProvider>()
+        .Add<ViewServiceProvider>(provider =>
+        {
+            provider.Component = typeof(App.Components.App);
+        });
+});
+```
+
+The callback is executed immediately when the provider is registered, giving you the opportunity to configure the provider instance before its `Register` and `Boot` methods are called. This pattern keeps your configuration declarative and centralized, making it easy to understand how each provider is customized for your application.
 
 ## Registering Providers
 
